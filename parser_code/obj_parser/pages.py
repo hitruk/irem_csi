@@ -15,10 +15,11 @@ class HttpQuery:
     def get_page_html(self):
 
         if self.req.status_code == 200:
+
+            print('Server status code :', self.req.status_code)
             return self.req.text
         else:
-            print('Server status code :',
-                  self.req.status_code)
+            print('Server status code :', self.req.status_code)
             return
 
 class ElementPage:
@@ -52,10 +53,20 @@ class ElementPageParent(ElementPage):
         print(data)
         return data
 
+
 class ElementPageChild(ElementPage):
 
+    def count_page(self):
+        """Get count page  """
+        
+        try:    
+            n = self.soup.find('div', class_='content-blocks js-pagenavigation').find('a').get('data-count')
+        except:
+            n = 1
+        return n
+        
 
-    def get_child_element(self, id_troops):
+    def get_child_element(self):
 
         abc = self.soup.find('div', class_='content-blocks js-memoirs-items').find_all('div', class_='person person--light')
         data = []
@@ -69,7 +80,7 @@ class ElementPageChild(ElementPage):
             except:
                 url = ''
             if title != '' and url != '':
-                data.append((id_troops, title, url))
+                data.append((title, url))
         return data
 
 
