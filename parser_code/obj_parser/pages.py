@@ -15,8 +15,7 @@ class HttpQuery:
     def get_page_html(self):
 
         if self.req.status_code == 200:
-
-            print('Server status code :', self.req.status_code)
+            # print('Server status code :', self.req.status_code)
             return self.req.text
         else:
             print('Server status code :', self.req.status_code)
@@ -47,10 +46,8 @@ class ElementPageParent(ElementPage):
                 url = row.find('a').get('href').strip()
             except:
                 url = ''
-
             if url != '' and title != '':
                 data.append((title, url))
-        print(data)
         return data
 
 
